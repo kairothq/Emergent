@@ -56,12 +56,17 @@ const ProjectsSection = () => {
             Featured Work
           </p>
           <h2 className="text-5xl md:text-6xl font-bold mb-6">
-            <span style={{ color: 'var(--text-on-dark)' }}>Selected </span>
-            <span className="gradient-text">Projects</span>
+            <span style={{ color: '#122F26' }}>Selected </span>
+            <span style={{ 
+              background: 'linear-gradient(to right, var(--accent-green), var(--accent-orange))',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}>Projects</span>
           </h2>
           <p 
             className="text-xl max-w-3xl mx-auto"
-            style={{ color: 'var(--text-on-dark)', opacity: 0.7 }}
+            style={{ color: '#122F26', opacity: 0.7 }}
           >
             A collection of products and campaigns I've built from 0 to 1
           </p>

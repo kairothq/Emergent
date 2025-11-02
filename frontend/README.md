@@ -1,70 +1,286 @@
-# Getting Started with Create React App
+# Divy Kairoth Portfolio - Content Management Guide
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
+This portfolio website is built with React 18, Tailwind CSS, and Framer Motion, inspired by Campfire.ai's design aesthetic. It features smooth scroll animations, parallax effects, and a modern, clean interface.
 
-## Available Scripts
+## 🎨 Design System
 
-In the project directory, you can run:
+### Colors
+- **Primary Dark**: `#122F26` - Main background, text on white
+- **Accent Green**: `#B3EF96` - CTAs, highlights
+- **Accent Orange**: `#FE8630` - Secondary accent, animations
+- **Light Background**: `#F9F8F8` / `white` - Sections background
+- **Text on Dark**: `#E8F6ED` - Text on dark backgrounds
 
-### `npm start`
+### Typography
+- **Font Family**: Inter (Google Fonts)
+- **Heading Sizes**: 5xl - 7xl for hero, 4xl - 6xl for sections
+- **Body Text**: lg - xl for descriptions
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 📁 File Structure
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+/app/frontend/src/
+├── components/
+│   ├── LogoIntro.jsx          # Intro animation (2.5s)
+│   ├── Navigation.jsx          # Sticky nav with dropdown menu
+│   ├── Hero.jsx               # Main hero section
+│   ├── CircleCluster.jsx      # Animated circles (parallax ball)
+│   ├── FloatingCards.jsx      # Snapshot cards
+│   ├── VideoLaptop.jsx        # Laptop with video placeholder
+│   ├── ConnectDialog.jsx      # Contact form dialog
+│   ├── MovingStrip.jsx        # Horizontal scrolling text
+│   └── ProjectsSection.jsx    # Stacking project cards
+├── config/
+│   └── animation.js           # Animation timings & easings
+├── App.js                     # Main app component
+└── index.css                  # Global styles & CSS variables
+```
 
-### `npm test`
+## 🔄 How to Update Content
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 1. Personal Information
 
-### `npm run build`
+**File**: `src/components/Hero.jsx`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```jsx
+// Line ~60-65: Update tagline
+<p className="text-sm...">
+  Product Manager · Builder · Creator  // ← Change this
+</p>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+// Line ~68-72: Update headline
+<h1>
+  <span>Passionate for </span>
+  <span className="gradient-text">building public facing products</span>
+  // ← Edit both parts
+</h1>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+// Line ~75-79: Update description
+<p>
+  Turning ideas into scalable products...  // ← Change this
+</p>
+```
 
-### `npm run eject`
+**File**: `src/components/FloatingCards.jsx`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```jsx
+// Line ~10-50: Update snapshot cards
+const cards = [
+  {
+    id: 1,
+    title: 'Divy Kairoth',        // ← Your name
+    subtitle: 'Product Manager',   // ← Your title
+    description: 'Building products from 0→1',  // ← Your tagline
+    // ...
+  },
+  // ... update other cards (Projects, Ideas, Gallery, Blog)
+];
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 2. Projects
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**File**: `src/components/ProjectsSection.jsx`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```jsx
+// Line ~15-40: Update featured projects
+const featuredProjects = [
+  {
+    id: 1,
+    title: 'Mindlessly',                  // ← Project name
+    subtitle: 'Chrome Extension',         // ← Project type
+    description: 'A productivity tool...', // ← Description
+    tags: ['Chrome Extension', ...],       // ← Tech tags
+    github: 'https://github.com/...',     // ← GitHub link
+    link: '#',                            // ← Live demo link
+    color: 'var(--accent-orange)',        // ← Accent color
+  },
+  // ... add more projects
+];
+```
 
-## Learn More
+### 3. Moving Strip Keywords
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**File**: `src/components/MovingStrip.jsx`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```jsx
+// Line ~14-24: Update keywords
+const keywords = [
+  'PRODUCT STRATEGY',    // ← Change these
+  'AI',
+  'CONSUMER PRODUCTS',
+  'CONTENT',
+  'RUNNING',
+  // ... repeat for continuous scroll
+];
+```
 
-### Code Splitting
+### 4. Navigation Links
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**File**: `src/components/Navigation.jsx`
 
-### Analyzing the Bundle Size
+```jsx
+// Line ~37-44: Update nav links
+const navLinks = [
+  { title: 'About', href: '#about' },      // ← Update titles & hrefs
+  { title: 'Projects', href: '#projects' },
+  { title: 'Ideas', href: '#ideas' },
+  // ...
+];
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+// Line ~47-51: Update social links
+const socialLinks = [
+  { icon: Linkedin, href: 'https://...', label: 'LinkedIn' },  // ← Update URLs
+  { icon: Instagram, href: '#', label: 'Instagram' },
+  { icon: Youtube, href: '#', label: 'YouTube' },
+];
+```
 
-### Making a Progressive Web App
+### 5. Introduction Video
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+**File**: `src/components/VideoLaptop.jsx`
 
-### Advanced Configuration
+```jsx
+// Line ~75-82: Uncomment and add video URL
+<video
+  className="w-full h-full object-cover"
+  controls
+  poster="/path-to-thumbnail.jpg"    // ← Add thumbnail image
+>
+  <source src="/path-to-video.mp4" type="video/mp4" />  // ← Add video file
+  Your browser does not support the video tag.
+</video>
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+**Note**: Place video file in `/app/frontend/public/` folder and reference as `/video.mp4`
 
-### Deployment
+### 6. Project Images/Thumbnails
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+**To add project images**:
 
-### `npm run build` fails to minify
+1. Place images in `/app/frontend/public/images/`
+2. Update in `ProjectsSection.jsx`:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```jsx
+// Replace placeholder with actual image
+<motion.div className="relative...">
+  <img 
+    src="/images/project-mindlessly.png"  // ← Your image path
+    alt="Mindlessly project"
+    className="w-full h-full object-cover"
+  />
+</motion.div>
+```
+
+### 7. Avatar/Profile Picture
+
+**File**: `src/components/FloatingCards.jsx`
+
+```jsx
+// Line ~55-62: Replace "DK" with image
+<div className="w-16 h-16 rounded-full...">
+  <img 
+    src="/images/avatar.jpg"  // ← Your photo
+    alt="Divy Kairoth"
+    className="w-full h-full object-cover"
+  />
+</div>
+```
+
+## 🎬 Animation Configuration
+
+**File**: `src/config/animation.js`
+
+```javascript
+export const ANIMATION_CONFIG = {
+  intro: {
+    letterStagger: 0.04,      // Delay between letters
+    letterDuration: 0.35,     // Letter fade-in duration
+    totalDuration: 2.5,       // Total intro animation time
+  },
+  // ... modify timings as needed
+};
+```
+
+## 🚀 Deployment
+
+### Static Export for GoDaddy
+
+1. Build the project:
+```bash
+cd /app/frontend
+yarn build
+```
+
+2. The `build/` folder contains static HTML/CSS/JS files
+
+3. Upload contents of `build/` folder to your GoDaddy hosting
+
+### Asset Replacement Checklist
+
+Before deployment, replace these placeholders:
+
+- [ ] Introduction video (`/public/video.mp4`)
+- [ ] Profile avatar (`/public/images/avatar.jpg`)
+- [ ] Project thumbnails (`/public/images/project-*.png`)
+- [ ] Update all personal information (name, bio, links)
+- [ ] Update project details and links
+- [ ] Add real social media URLs
+- [ ] Test all animations and scroll behavior
+
+## 🎨 Color Customization
+
+To change the color scheme, update these CSS variables in `src/index.css`:
+
+```css
+:root {
+  --bg-dark: #122F26;        /* Main dark background */
+  --accent-green: #B3EF96;   /* Primary accent */
+  --accent-orange: #FE8630;  /* Secondary accent */
+  --muted-white: #F9F8F8;    /* Light sections */
+  --text-on-dark: #E8F6ED;   /* Text on dark bg */
+}
+```
+
+## 📱 Responsive Design
+
+The portfolio is optimized for:
+- Desktop: 1920px+ (full experience)
+- Tablet: 768px - 1919px
+- Mobile: iPhone 13 (390px × 844px)
+
+Key breakpoints are handled using Tailwind's responsive classes (`md:`, `lg:`).
+
+## ⚡ Performance Tips
+
+1. **Image Optimization**: Use WebP format, compress to <500KB
+2. **Video**: Keep under 10MB, use poster images
+3. **Lazy Loading**: Images below fold are lazy-loaded automatically
+4. **Animations**: Respect `prefers-reduced-motion` for accessibility
+
+## 🐛 Troubleshooting
+
+### Animations not working?
+- Check browser console for errors
+- Ensure Framer Motion is installed: `yarn add framer-motion`
+
+### Images not loading?
+- Verify files are in `/public/` folder
+- Use absolute paths like `/images/file.jpg`
+
+### Build fails?
+- Run `yarn install` to ensure all dependencies
+- Check for syntax errors in modified files
+
+## 📞 Support
+
+For questions or issues with content updates, refer to:
+- React Docs: https://react.dev
+- Framer Motion: https://www.framer.com/motion/
+- Tailwind CSS: https://tailwindcss.com
+
+---
+
+**Version**: 1.0  
+**Last Updated**: January 2025  
+**Built with**: React 18, Tailwind CSS, Framer Motion

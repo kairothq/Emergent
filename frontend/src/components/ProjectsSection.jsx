@@ -86,7 +86,7 @@ const ProjectsSection = () => {
               <div 
                 className="p-8 md:p-12 rounded-[2.5rem] backdrop-blur-md"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
+                  background: 'linear-gradient(135deg, rgba(18, 47, 38, 0.05) 0%, rgba(18, 47, 38, 0.02) 100%)',
                   border: `2px solid ${project.color}30`,
                 }}
               >
@@ -102,13 +102,13 @@ const ProjectsSection = () => {
                       </p>
                       <h3 
                         className="text-4xl md:text-5xl font-bold mb-4"
-                        style={{ color: 'var(--text-on-dark)' }}
+                        style={{ color: '#122F26' }}
                       >
                         {project.title}
                       </h3>
                       <p 
                         className="text-lg leading-relaxed"
-                        style={{ color: 'var(--text-on-dark)', opacity: 0.8 }}
+                        style={{ color: '#122F26', opacity: 0.8 }}
                       >
                         {project.description}
                       </p>

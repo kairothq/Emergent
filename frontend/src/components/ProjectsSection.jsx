@@ -138,8 +138,8 @@ const ProjectsSection = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center space-x-2 px-6 py-3 rounded-full"
-                          style={{ background: 'var(--glass-opa-1)', color: 'var(--text-on-dark)' }}
-                          whileHover={{ scale: 1.05, background: project.color }}
+                          style={{ background: 'rgba(18, 47, 38, 0.1)', color: '#122F26' }}
+                          whileHover={{ scale: 1.05, background: project.color, color: 'white' }}
                           whileTap={{ scale: 0.95 }}
                         >
                           <Github size={20} />

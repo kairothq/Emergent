@@ -1,80 +1,34 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useTransform } from 'framer-motion';
 
-const CircleCluster = () => {
+const CircleCluster = ({ scrollProgress }) => {
+  // Transform values based on scroll
+  const scale = useTransform(scrollProgress, [0, 0.5], [1, 3]);
+  const opacity = useTransform(scrollProgress, [0, 0.3], [0.6, 1]);
+
   return (
-    <div className="absolute top-0 right-0 w-[800px] h-[800px] overflow-hidden">
-      {/* Large Orange Gradient Circle */}
+    <div className="fixed bottom-0 right-0 w-full h-full pointer-events-none">
+      {/* Orange Glow */}
       <motion.div
+        style={{ scale, opacity }}
         animate={{
           scale: [1, 1.03, 1],
-          rotate: [0, 3, 0],
         }}
         transition={{
           duration: 8,
           repeat: Infinity,
           ease: 'easeInOut',
         }}
-        className="absolute -top-[400px] -right-[400px] w-[800px] h-[800px] rounded-full"
+        className="absolute -bottom-[400px] -right-[400px] w-[800px] h-[800px] rounded-full"
         style={{
-          background: 'radial-gradient(circle at center, var(--accent-orange) 0%, rgba(254, 134, 48, 0.4) 40%, transparent 70%)',
-          filter: 'blur(30px)',
+          background: 'radial-gradient(circle at center, var(--accent-orange) 0%, rgba(254, 134, 48, 0.3) 50%, transparent 70%)',
+          filter: 'blur(60px)',
         }}
       />
 
-      {/* Middle Green Gradient */}
+      {/* Concentric Circle 1 - Outermost */}
       <motion.div
-        animate={{
-          scale: [1, 1.05, 1],
-          rotate: [0, -5, 0],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 0.5,
-        }}
-        className="absolute -top-[350px] -right-[350px] w-[700px] h-[700px] rounded-full"
-        style={{
-          background: 'radial-gradient(circle at center, rgba(179, 239, 150, 0.3) 0%, rgba(179, 239, 150, 0.15) 40%, transparent 70%)',
-          filter: 'blur(25px)',
-        }}
-      />
-
-      {/* Concentric Rings - Less blurred, visible */}
-      <motion.div
-        animate={{
-          rotate: [0, 360],
-        }}
-        transition={{
-          duration: 40,
-          repeat: Infinity,
-          ease: 'linear',
-        }}
-        className="absolute -top-[300px] -right-[300px] w-[600px] h-[600px] rounded-full border-2"
-        style={{
-          borderColor: 'rgba(254, 134, 48, 0.2)',
-          filter: 'blur(1px)',
-        }}
-      />
-
-      <motion.div
-        animate={{
-          rotate: [360, 0],
-        }}
-        transition={{
-          duration: 50,
-          repeat: Infinity,
-          ease: 'linear',
-        }}
-        className="absolute -top-[250px] -right-[250px] w-[500px] h-[500px] rounded-full border"
-        style={{
-          borderColor: 'rgba(179, 239, 150, 0.15)',
-          filter: 'blur(0.5px)',
-        }}
-      />
-
-      <motion.div
+        style={{ scale }}
         animate={{
           rotate: [0, 360],
         }}
@@ -83,10 +37,43 @@ const CircleCluster = () => {
           repeat: Infinity,
           ease: 'linear',
         }}
-        className="absolute -top-[200px] -right-[200px] w-[400px] h-[400px] rounded-full border"
+        className="absolute -bottom-[250px] -right-[250px] w-[500px] h-[500px] rounded-full border-2"
         style={{
-          borderColor: 'rgba(254, 134, 48, 0.15)',
-          filter: 'blur(0.5px)',
+          borderColor: 'rgba(254, 134, 48, 0.3)',
+        }}
+      />
+
+      {/* Concentric Circle 2 - Middle */}
+      <motion.div
+        style={{ scale }}
+        animate={{
+          rotate: [360, 0],
+        }}
+        transition={{
+          duration: 50,
+          repeat: Infinity,
+          ease: 'linear',
+        }}
+        className="absolute -bottom-[200px] -right-[200px] w-[400px] h-[400px] rounded-full border-2"
+        style={{
+          borderColor: 'rgba(254, 134, 48, 0.4)',
+        }}
+      />
+
+      {/* Concentric Circle 3 - Innermost */}
+      <motion.div
+        style={{ scale }}
+        animate={{
+          rotate: [0, 360],
+        }}
+        transition={{
+          duration: 40,
+          repeat: Infinity,
+          ease: 'linear',
+        }}
+        className="absolute -bottom-[150px] -right-[150px] w-[300px] h-[300px] rounded-full border-2"
+        style={{
+          borderColor: 'rgba(254, 134, 48, 0.5)',
         }}
       />
     </div>

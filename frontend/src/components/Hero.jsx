@@ -20,17 +20,27 @@ const Hero = () => {
   // Background color transition: dark → white
   const backgroundColor = useTransform(
     scrollYProgress,
-    [0, 0.4, 0.6],
-    ['#122F26', '#f5f0eb', '#ffffff']
+    [0, 0.55, 0.65, 0.92],
+    ['#122F26', '#122F26', '#F9F8F8', 'rgba(254, 134, 48, 0.1)']
   );
+
+  // Hero z-index management - after collapse, lower z-index so content appears above
+  const heroZIndex = useTransform(scrollYProgress, [0, 0.92, 0.93], [10, 10, 0]);
+
+  // Text fade out early
+  const textOpacity = useTransform(scrollYProgress, [0, 0.2, 0.3], [1, 1, 0]);
 
   return (
     <>
       <motion.section 
         ref={heroRef}
         id="home" 
-        className="relative min-h-[250vh] flex items-start pt-32 justify-center overflow-hidden px-6"
-        style={{ backgroundColor }}
+        className="hero-wrap relative min-h-[250vh] flex items-start pt-32 justify-center overflow-hidden px-6"
+        style={{ 
+          backgroundColor,
+          zIndex: heroZIndex,
+          willChange: 'background-color',
+        }}
       >
         {/* Background Circle Cluster - Bottom right, expands on scroll */}
         <CircleCluster scrollProgress={scrollYProgress} />
@@ -42,14 +52,14 @@ const Hero = () => {
         <VideoLaptop scrollProgress={scrollYProgress} />
 
         {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <motion.div 
+          className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+          style={{ opacity: textOpacity }}
+        >
           {/* Left: Text Content */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            style={{
-              opacity: useTransform(scrollYProgress, [0, 0.3], [1, 0]),
-            }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="space-y-6"
           >
@@ -131,7 +141,7 @@ const Hero = () => {
 
           {/* Right: Space for effects */}
           <div className="hidden lg:block" />
-        </div>
+        </motion.div>
       </motion.section>
 
       {/* Connect Dialog */}

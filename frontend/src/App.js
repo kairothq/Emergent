@@ -6,6 +6,11 @@ import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import MovingStrip from './components/MovingStrip';
 import ProjectsSection from './components/ProjectsSection';
+import IdeasSection from './components/IdeasSection';
+import BlogSection from './components/BlogSection';
+import GallerySection from './components/GallerySection';
+import AboutSection from './components/AboutSection';
+import Footer from './components/Footer';
 
 const Home = () => {
   const [introComplete, setIntroComplete] = useState(false);
@@ -24,18 +29,11 @@ const Home = () => {
           <Hero />
           <MovingStrip />
           <ProjectsSection />
-          
-          {/* Placeholder for more sections */}
-          <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--muted-white)' }}>
-            <div className="text-center space-y-4">
-              <h2 className="text-4xl font-bold" style={{ color: 'var(--bg-dark)' }}>
-                More sections coming...
-              </h2>
-              <p className="text-lg" style={{ color: 'var(--bg-dark)', opacity: 0.7 }}>
-                Ideas · Blog · Gallery · About · Footer
-              </p>
-            </div>
-          </div>
+          <IdeasSection />
+          <BlogSection />
+          <GallerySection />
+          <AboutSection />
+          <Footer />
         </>
       )}
     </>

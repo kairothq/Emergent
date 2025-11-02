@@ -24,7 +24,7 @@ const Hero = () => {
       <section 
         ref={heroRef}
         id="home" 
-        className="relative min-h-[150vh] flex items-center justify-center overflow-hidden px-6"
+        className="relative min-h-[150vh] flex items-start pt-32 justify-center overflow-hidden px-6"
         style={{ background: 'var(--bg-dark)' }}
       >
         {/* Background Circle Cluster - Bottom right, expands on scroll */}

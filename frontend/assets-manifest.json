@@ -1,0 +1,114 @@
+{
+  "assets_to_replace": [
+    {
+      "type": "video",
+      "placeholder": "Introduction Video Placeholder",
+      "location": "/app/frontend/public/video.mp4",
+      "component": "VideoLaptop.jsx",
+      "description": "Your introduction video (max 10MB, MP4 format)",
+      "instructions": "1. Add video file to /public/ folder\n2. Uncomment video element in VideoLaptop.jsx\n3. Update src and poster paths"
+    },
+    {
+      "type": "image",
+      "placeholder": "Profile Avatar 'DK'",
+      "location": "/app/frontend/public/images/avatar.jpg",
+      "component": "FloatingCards.jsx",
+      "description": "Your profile photo (square, min 200x200px)",
+      "instructions": "1. Add image to /public/images/\n2. Replace 'DK' div with <img> tag\n3. Use path: /images/avatar.jpg"
+    },
+    {
+      "type": "image",
+      "placeholder": "Project Thumbnail - Mindlessly",
+      "location": "/app/frontend/public/images/project-mindlessly.png",
+      "component": "ProjectsSection.jsx",
+      "description": "Screenshot or mockup of Mindlessly project",
+      "instructions": "Replace ExternalLink icon with actual image"
+    },
+    {
+      "type": "image",
+      "placeholder": "Project Thumbnail - OnePlus Nord",
+      "location": "/app/frontend/public/images/project-oneplus.png",
+      "component": "ProjectsSection.jsx",
+      "description": "Campaign visual for OnePlus Nord",
+      "instructions": "Replace placeholder gradient with image"
+    },
+    {
+      "type": "image",
+      "placeholder": "Project Thumbnail - Mierae",
+      "location": "/app/frontend/public/images/project-mierae.png",
+      "component": "ProjectsSection.jsx",
+      "description": "Pitch deck cover or screenshot",
+      "instructions": "Replace placeholder gradient with image"
+    }
+  ],
+  "content_to_update": [
+    {
+      "section": "Hero",
+      "file": "Hero.jsx",
+      "fields": [
+        "Tagline (Product Manager · Builder · Creator)",
+        "Main headline (Passionate for building public facing products)",
+        "Description paragraph"
+      ]
+    },
+    {
+      "section": "Navigation",
+      "file": "Navigation.jsx",
+      "fields": [
+        "Social media URLs (LinkedIn, Instagram, YouTube)",
+        "Navigation links (titles and anchors)"
+      ]
+    },
+    {
+      "section": "Projects",
+      "file": "ProjectsSection.jsx",
+      "fields": [
+        "Project titles and descriptions",
+        "GitHub and live demo links",
+        "Technology tags",
+        "Accent colors"
+      ]
+    },
+    {
+      "section": "Moving Strip",
+      "file": "MovingStrip.jsx",
+      "fields": [
+        "Keywords array (PRODUCT STRATEGY, AI, etc.)"
+      ]
+    },
+    {
+      "section": "Floating Cards",
+      "file": "FloatingCards.jsx",
+      "fields": [
+        "Card titles and descriptions",
+        "Profile name and title"
+      ]
+    }
+  ],
+  "configuration": {
+    "colors": {
+      "file": "index.css",
+      "variables": [
+        "--bg-dark: #122F26",
+        "--accent-green: #B3EF96",
+        "--accent-orange: #FE8630",
+        "--muted-white: #F9F8F8",
+        "--text-on-dark: #E8F6ED"
+      ]
+    },
+    "animations": {
+      "file": "config/animation.js",
+      "settings": [
+        "Intro letter stagger: 0.04s",
+        "Logo stroke duration: 0.9s",
+        "Total intro duration: 2.5s"
+      ]
+    }
+  },
+  "deployment": {
+    "command": "yarn build",
+    "output_folder": "build/",
+    "hosting": "GoDaddy static hosting",
+    "notes": "Upload contents of build/ folder to your hosting root"
+  }
+}

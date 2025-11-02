@@ -90,7 +90,7 @@ const CircleCluster = ({ scrollProgress }) => {
           }}
         />
 
-        {/* White Ring - Expands fastest to fill screen */}
+        {/* White Ring - Expands fastest to fill screen, then fades */}
         <motion.div
           style={{ scale: whiteScale, opacity: whiteOpacity }}
           className="absolute -left-[200px] -top-[200px] w-[400px] h-[400px] rounded-full ring--white"
@@ -101,12 +101,13 @@ const CircleCluster = ({ scrollProgress }) => {
           }}
         />
 
-        {/* Core Orange Ball (visible when collapsed) */}
+        {/* Core Orange Ball (visible when collapsed) - Parallax element */}
         <motion.div
           className="absolute -left-[18px] -top-[18px] w-[36px] h-[36px] rounded-full"
           style={{
-            background: 'radial-gradient(circle, #FE8630 0%, rgba(254, 134, 48, 0.8) 100%)',
-            opacity: useTransform(scrollProgress, [0.85, 0.92], [0, 1]),
+            background: 'radial-gradient(circle, #FE8630 100%, rgba(254, 134, 48, 0.9) 100%)',
+            opacity: useTransform(scrollProgress, [0.85, 0.92, 1], [0, 1, 1]),
+            boxShadow: '0 4px 20px rgba(254, 134, 48, 0.4)',
           }}
         />
       </motion.div>

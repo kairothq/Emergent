@@ -1,20 +1,22 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useTransform } from 'framer-motion';
 
 const VideoLaptop = ({ scrollProgress }) => {
-  const isVisible = scrollProgress > 0.3;
+  // Start at bottom right, move to center
+  const x = useTransform(scrollProgress, [0, 0.5], [600, 0]);
+  const y = useTransform(scrollProgress, [0, 0.5], [300, 0]);
+  const scale = useTransform(scrollProgress, [0, 0.5], [0.6, 1]);
+  const opacity = useTransform(scrollProgress, [0, 0.2, 0.5], [0, 1, 1]);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 100, scale: 0.8 }}
-      animate={{
-        opacity: isVisible ? 1 : 0,
-        y: isVisible ? 0 : 100,
-        scale: isVisible ? 1 : 0.8,
+      style={{
+        x,
+        y,
+        scale,
+        opacity,
       }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className="fixed inset-0 flex items-center justify-center pointer-events-none z-20"
-      style={{ opacity: scrollProgress > 0.3 ? 1 : 0 }}
     >
       {/* Laptop Frame */}
       <div className="relative" style={{ width: '900px', maxWidth: '90vw' }}>

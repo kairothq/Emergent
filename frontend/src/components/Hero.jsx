@@ -27,8 +27,8 @@ const Hero = () => {
         className="relative min-h-[150vh] flex items-center justify-center overflow-hidden px-6"
         style={{ background: 'var(--bg-dark)' }}
       >
-        {/* Background Circle Cluster - Quarter in corner */}
-        <CircleCluster />
+        {/* Background Circle Cluster - Bottom right, expands on scroll */}
+        <CircleCluster scrollProgress={scrollProgress} />
 
         {/* Floating Snapshot Cards */}
         <FloatingCards scrollProgress={scrollProgress} />

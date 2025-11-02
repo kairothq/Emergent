@@ -2,27 +2,35 @@ import React from 'react';
 import { motion, useTransform } from 'framer-motion';
 
 const VideoLaptop = ({ scrollProgress }) => {
-  // Phase 1: Start above circles at bottom-right (0 → 0.2)
-  // Phase 2: Move with circles to center (0.2 → 0.5)
-  // Phase 3: Shrink with circles (0.5 → 0.7)
-  // Phase 4: Fade out (0.7+)
+  // Phase 1: Start in corner (0 → 0.25) covering 20-25% viewport
+  // Phase 2: Move diagonally toward center (0.25 → 0.55)
+  // Phase 3: White ring appears, laptop scales up and centers (0.55 → 0.65)
+  // Phase 4: Centered and large (0.65 → 0.9)
+  // Phase 5: Collapse (0.9+)
   
-  const scale = useTransform(scrollProgress, [0, 0.2, 0.5, 0.7], [0.5, 1, 1, 0.08]);
-  const opacity = useTransform(scrollProgress, [0, 0.15, 0.7, 0.75], [0, 1, 1, 0]);
-  const y = useTransform(scrollProgress, [0, 0.5, 0.7], [0, 0, -50]);
+  const scale = useTransform(scrollProgress, [0, 0.25, 0.55, 0.65, 0.92], [0.25, 0.3, 0.6, 1, 0.08]);
+  const x = useTransform(scrollProgress, [0, 0.55, 0.92], [150, 0, 0]);
+  const y = useTransform(scrollProgress, [0, 0.55, 0.92], [100, 0, 0]);
+  const opacity = useTransform(scrollProgress, [0, 0.15, 0.92, 0.95], [0, 1, 1, 0]);
+
+  // Laptop moves faster toward center (parallax)
+  const laptopX = useTransform(scrollProgress, [0, 0.55], [0, 0]);
+  const laptopY = useTransform(scrollProgress, [0, 0.55], [0, 0]);
 
   return (
     <motion.div
       style={{
         scale,
-        opacity,
+        x,
         y,
-        zIndex: 10, // Above circles
+        opacity,
+        zIndex: 30, // Above all rings and tiles
+        willChange: 'transform, opacity',
       }}
-      className="fixed inset-0 flex items-center justify-center pointer-events-auto"
+      className="fixed inset-0 flex items-center justify-center laptop"
     >
       {/* Laptop Frame */}
-      <div className="relative" style={{ width: '900px', maxWidth: '90vw' }}>
+      <div className="relative pointer-events-auto" style={{ width: '900px', maxWidth: '90vw' }}>
         {/* Screen */}
         <div
           className="relative rounded-2xl overflow-hidden shadow-2xl cursor-pointer"

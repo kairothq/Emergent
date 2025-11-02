@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useTransform } from 'framer-motion';
 import { Code, Lightbulb, Camera, FileText } from 'lucide-react';
 
 const FloatingCards = ({ scrollProgress }) => {
@@ -11,7 +11,7 @@ const FloatingCards = ({ scrollProgress }) => {
       description: 'Building products from 0→1',
       type: 'profile',
       color: 'var(--accent-orange)',
-      position: { x: -200, y: -100, rotate: -5 },
+      position: { bottom: 280, right: 420 },
     },
     {
       id: 2,
@@ -20,7 +20,7 @@ const FloatingCards = ({ scrollProgress }) => {
       description: 'Mindlessly, OnePlus Nord, Mierae',
       type: 'folder',
       color: 'var(--accent-green)',
-      position: { x: 150, y: -150, rotate: 3 },
+      position: { bottom: 180, right: 180 },
     },
     {
       id: 3,
@@ -29,7 +29,7 @@ const FloatingCards = ({ scrollProgress }) => {
       description: 'Product experiments & thoughts',
       type: 'folder',
       color: '#FFB84D',
-      position: { x: -100, y: 150, rotate: -3 },
+      position: { bottom: 100, right: 450 },
     },
     {
       id: 4,
@@ -38,7 +38,7 @@ const FloatingCards = ({ scrollProgress }) => {
       description: 'Photography & visual work',
       type: 'folder',
       color: '#8B7FFF',
-      position: { x: 180, y: 120, rotate: 5 },
+      position: { bottom: 380, right: 200 },
     },
     {
       id: 5,
@@ -47,43 +47,44 @@ const FloatingCards = ({ scrollProgress }) => {
       description: 'Writings on product & tech',
       type: 'folder',
       color: '#FF6B9D',
-      position: { x: 50, y: -50, rotate: -2 },
+      position: { bottom: 240, right: 600 },
     },
   ];
 
   return (
-    <div className="absolute inset-0 pointer-events-none">
+    <div className="fixed inset-0 pointer-events-none">
       {cards.map((card) => {
         const Icon = card.icon;
+        
+        // Calculate transforms based on scroll
+        const opacity = useTransform(scrollProgress, [0, 0.3], [1, 0]);
+        const scale = useTransform(scrollProgress, [0, 0.3], [1, 0.8]);
+        const z = useTransform(scrollProgress, [0, 0.5], [10, -100]); // Move behind laptop
         
         return (
           <motion.div
             key={card.id}
             initial={{
-              x: card.position.x,
-              y: card.position.y,
-              rotate: card.position.rotate,
               opacity: 0,
               scale: 0.8,
             }}
             animate={{
               opacity: 1,
               scale: 1,
-              x: card.position.x,
-              y: card.position.y,
             }}
             style={{
-              x: scrollProgress * 300, // Move on scroll
-              y: scrollProgress * -200,
-              scale: 1 - scrollProgress * 0.5,
-              opacity: 1 - scrollProgress,
+              opacity,
+              scale,
+              z,
+              bottom: card.position.bottom,
+              right: card.position.right,
             }}
             transition={{
               duration: 0.8,
               delay: card.id * 0.1,
               ease: [0.16, 1, 0.3, 1],
             }}
-            className="absolute left-1/2 top-1/2 pointer-events-auto"
+            className="absolute pointer-events-auto"
           >
             <div
               className="p-6 rounded-3xl backdrop-blur-md shadow-2xl w-64 h-48 flex flex-col justify-between"

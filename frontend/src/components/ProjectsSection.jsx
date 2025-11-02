@@ -1,8 +1,14 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Github, ExternalLink } from 'lucide-react';
 
 const ProjectsSection = () => {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
   const featuredProjects = [
     {
       id: 1,
@@ -36,9 +42,10 @@ const ProjectsSection = () => {
 
   return (
     <section 
+      ref={sectionRef}
       id="projects" 
       className="relative py-32 px-6"
-      style={{ background: 'white', zIndex: 10 }}
+      style={{ background: 'white', zIndex: 20 }}
     >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
@@ -72,109 +79,126 @@ const ProjectsSection = () => {
           </p>
         </motion.div>
 
-        {/* Featured Projects Grid */}
-        <div className="space-y-12 mb-20">
-          {featuredProjects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
-              className="group"
-            >
-              <div 
-                className="p-8 md:p-12 rounded-[2.5rem] backdrop-blur-md"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(18, 47, 38, 0.05) 0%, rgba(18, 47, 38, 0.02) 100%)',
-                  border: `2px solid ${project.color}30`,
+        {/* Stacking Project Cards */}
+        <div className="relative space-y-8">
+          {featuredProjects.map((project, index) => {
+            // Calculate individual card scroll progress
+            const cardScale = useTransform(
+              scrollYProgress,
+              [0.2 + index * 0.1, 0.4 + index * 0.1],
+              [0.95, 1]
+            );
+            const cardY = useTransform(
+              scrollYProgress,
+              [0.2 + index * 0.1, 0.6 + index * 0.1],
+              [100, -index * 20]
+            );
+
+            return (
+              <motion.div
+                key={project.id}
+                style={{ 
+                  scale: cardScale,
+                  y: cardY,
+                  position: 'sticky',
+                  top: `${120 + index * 20}px`,
+                  zIndex: featuredProjects.length - index,
                 }}
+                className="group"
               >
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                  {/* Left: Content */}
-                  <div className="space-y-6">
-                    <div>
-                      <p 
-                        className="text-sm font-medium mb-2"
-                        style={{ color: project.color }}
-                      >
-                        {project.subtitle}
-                      </p>
-                      <h3 
-                        className="text-4xl md:text-5xl font-bold mb-4"
-                        style={{ color: '#122F26' }}
-                      >
-                        {project.title}
-                      </h3>
-                      <p 
-                        className="text-lg leading-relaxed"
-                        style={{ color: '#122F26', opacity: 0.8 }}
-                      >
-                        {project.description}
-                      </p>
-                    </div>
-
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag, i) => (
-                        <span
-                          key={i}
-                          className="px-4 py-2 rounded-full text-sm font-medium"
-                          style={{
-                            background: `${project.color}20`,
-                            color: project.color,
-                          }}
+                <div 
+                  className="p-8 md:p-12 rounded-[2.5rem] backdrop-blur-md shadow-xl"
+                  style={{
+                    background: 'white',
+                    border: `3px solid ${project.color}`,
+                  }}
+                >
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    {/* Left: Content */}
+                    <div className="space-y-6">
+                      <div>
+                        <p 
+                          className="text-sm font-medium mb-2"
+                          style={{ color: project.color }}
                         >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                          {project.subtitle}
+                        </p>
+                        <h3 
+                          className="text-4xl md:text-5xl font-bold mb-4"
+                          style={{ color: '#122F26' }}
+                        >
+                          {project.title}
+                        </h3>
+                        <p 
+                          className="text-lg leading-relaxed"
+                          style={{ color: '#122F26', opacity: 0.8 }}
+                        >
+                          {project.description}
+                        </p>
+                      </div>
 
-                    {/* Links */}
-                    <div className="flex items-center space-x-4 pt-4">
-                      {project.github && (
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-2">
+                        {project.tags.map((tag, i) => (
+                          <span
+                            key={i}
+                            className="px-4 py-2 rounded-full text-sm font-medium"
+                            style={{
+                              background: `${project.color}20`,
+                              color: project.color,
+                            }}
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Links */}
+                      <div className="flex items-center space-x-4 pt-4">
+                        {project.github && (
+                          <motion.a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center space-x-2 px-6 py-3 rounded-full"
+                            style={{ background: 'rgba(18, 47, 38, 0.1)', color: '#122F26' }}
+                            whileHover={{ scale: 1.05, background: project.color, color: 'white' }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <Github size={20} />
+                            <span>View Code</span>
+                          </motion.a>
+                        )}
                         <motion.a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          href={project.link}
                           className="flex items-center space-x-2 px-6 py-3 rounded-full"
-                          style={{ background: 'rgba(18, 47, 38, 0.1)', color: '#122F26' }}
-                          whileHover={{ scale: 1.05, background: project.color, color: 'white' }}
+                          style={{ background: project.color, color: 'white' }}
+                          whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                         >
-                          <Github size={20} />
-                          <span>View Code</span>
+                          <span>Learn More</span>
+                          <ArrowRight size={20} />
                         </motion.a>
-                      )}
-                      <motion.a
-                        href={project.link}
-                        className="flex items-center space-x-2 px-6 py-3 rounded-full"
-                        style={{ background: project.color, color: 'var(--bg-dark)' }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <span>Learn More</span>
-                        <ArrowRight size={20} />
-                      </motion.a>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Right: Project Visual Placeholder */}
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    className="relative aspect-video rounded-2xl overflow-hidden"
-                    style={{
-                      background: `linear-gradient(135deg, ${project.color}30 0%, ${project.color}10 100%)`,
-                    }}
-                  >
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <ExternalLink size={48} style={{ color: project.color, opacity: 0.3 }} />
-                    </div>
-                  </motion.div>
+                    {/* Right: Project Visual Placeholder */}
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      className="relative aspect-video rounded-2xl overflow-hidden"
+                      style={{
+                        background: `linear-gradient(135deg, ${project.color}30 0%, ${project.color}10 100%)`,
+                      }}
+                    >
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <ExternalLink size={48} style={{ color: project.color, opacity: 0.3 }} />
+                      </div>
+                    </motion.div>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* View All Projects CTA */}
@@ -183,7 +207,7 @@ const ProjectsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center"
+          className="text-center mt-20"
         >
           <motion.a
             href="/projects"

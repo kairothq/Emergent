@@ -17,24 +17,29 @@ const Hero = () => {
     offset: ["start start", "end start"],
   });
 
-  const scrollProgress = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+  // Background color transition: dark → white
+  const backgroundColor = useTransform(
+    scrollYProgress,
+    [0, 0.4, 0.6],
+    ['#122F26', '#f5f0eb', '#ffffff']
+  );
 
   return (
     <>
-      <section 
+      <motion.section 
         ref={heroRef}
         id="home" 
-        className="relative min-h-[150vh] flex items-start pt-32 justify-center overflow-hidden px-6"
-        style={{ background: 'var(--bg-dark)' }}
+        className="relative min-h-[250vh] flex items-start pt-32 justify-center overflow-hidden px-6"
+        style={{ backgroundColor }}
       >
         {/* Background Circle Cluster - Bottom right, expands on scroll */}
-        <CircleCluster scrollProgress={scrollProgress} />
+        <CircleCluster scrollProgress={scrollYProgress} />
 
         {/* Floating Snapshot Cards */}
-        <FloatingCards scrollProgress={scrollProgress} />
+        <FloatingCards scrollProgress={scrollYProgress} />
 
-        {/* Video Laptop (appears on scroll) */}
-        <VideoLaptop scrollProgress={scrollProgress} />
+        {/* Video Laptop (appears from circles, moves to center, shrinks) */}
+        <VideoLaptop scrollProgress={scrollYProgress} />
 
         {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -42,6 +47,9 @@ const Hero = () => {
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
+            style={{
+              opacity: useTransform(scrollYProgress, [0, 0.3], [1, 0]),
+            }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="space-y-6"
           >
@@ -124,7 +132,7 @@ const Hero = () => {
           {/* Right: Space for effects */}
           <div className="hidden lg:block" />
         </div>
-      </section>
+      </motion.section>
 
       {/* Connect Dialog */}
       <ConnectDialog

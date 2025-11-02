@@ -2,11 +2,15 @@ import React from 'react';
 import { motion, useTransform } from 'framer-motion';
 
 const VideoLaptop = ({ scrollProgress }) => {
-  // Start at bottom right, move to center
-  const x = useTransform(scrollProgress, [0, 0.5], [600, 0]);
-  const y = useTransform(scrollProgress, [0, 0.5], [300, 0]);
-  const scale = useTransform(scrollProgress, [0, 0.5], [0.6, 1]);
-  const opacity = useTransform(scrollProgress, [0, 0.2, 0.5], [0, 1, 1]);
+  // Phase 1: Start at bottom right with circles (0 → 0.3)
+  // Phase 2: Move to center (0.3 → 0.5)
+  // Phase 3: Shrink with circles (0.5 → 0.7)
+  // Phase 4: Disappear behind content (0.7+)
+  
+  const x = useTransform(scrollProgress, [0, 0.3, 0.5], [500, 0, 0]);
+  const y = useTransform(scrollProgress, [0, 0.3, 0.5], [250, 0, 0]);
+  const scale = useTransform(scrollProgress, [0, 0.3, 0.5, 0.7], [0.5, 1, 1, 0.15]);
+  const opacity = useTransform(scrollProgress, [0, 0.2, 0.7, 0.8], [0, 1, 1, 0]);
 
   return (
     <motion.div
@@ -15,14 +19,15 @@ const VideoLaptop = ({ scrollProgress }) => {
         y,
         scale,
         opacity,
+        zIndex: 8, // Above circles but below content
       }}
-      className="fixed inset-0 flex items-center justify-center pointer-events-none z-20"
+      className="fixed inset-0 flex items-center justify-center pointer-events-auto"
     >
       {/* Laptop Frame */}
       <div className="relative" style={{ width: '900px', maxWidth: '90vw' }}>
         {/* Screen */}
         <div
-          className="relative rounded-2xl overflow-hidden shadow-2xl"
+          className="relative rounded-2xl overflow-hidden shadow-2xl cursor-pointer"
           style={{
             background: '#53644C',
             border: '12px solid #2a2a2a',
@@ -64,7 +69,7 @@ const VideoLaptop = ({ scrollProgress }) => {
                 </svg>
               </motion.div>
               <p className="text-lg font-medium" style={{ color: 'var(--text-on-dark)' }}>
-                Introduction Video
+                Watch Introduction
               </p>
             </div>
 

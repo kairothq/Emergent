@@ -2,24 +2,22 @@ import React from 'react';
 import { motion, useTransform } from 'framer-motion';
 
 const VideoLaptop = ({ scrollProgress }) => {
-  // Phase 1: Start at bottom right with circles (0 → 0.3)
-  // Phase 2: Move to center (0.3 → 0.5)
+  // Phase 1: Start above circles at bottom-right (0 → 0.2)
+  // Phase 2: Move with circles to center (0.2 → 0.5)
   // Phase 3: Shrink with circles (0.5 → 0.7)
-  // Phase 4: Disappear behind content (0.7+)
+  // Phase 4: Fade out (0.7+)
   
-  const x = useTransform(scrollProgress, [0, 0.3, 0.5], [500, 0, 0]);
-  const y = useTransform(scrollProgress, [0, 0.3, 0.5], [250, 0, 0]);
-  const scale = useTransform(scrollProgress, [0, 0.3, 0.5, 0.7], [0.5, 1, 1, 0.15]);
-  const opacity = useTransform(scrollProgress, [0, 0.2, 0.7, 0.8], [0, 1, 1, 0]);
+  const scale = useTransform(scrollProgress, [0, 0.2, 0.5, 0.7], [0.5, 1, 1, 0.08]);
+  const opacity = useTransform(scrollProgress, [0, 0.15, 0.7, 0.75], [0, 1, 1, 0]);
+  const y = useTransform(scrollProgress, [0, 0.5, 0.7], [0, 0, -50]);
 
   return (
     <motion.div
       style={{
-        x,
-        y,
         scale,
         opacity,
-        zIndex: 8, // Above circles but below content
+        y,
+        zIndex: 10, // Above circles
       }}
       className="fixed inset-0 flex items-center justify-center pointer-events-auto"
     >
@@ -73,7 +71,7 @@ const VideoLaptop = ({ scrollProgress }) => {
               </p>
             </div>
 
-            {/* Simulated UI elements for realism */}
+            {/* Simulated UI elements */}
             <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <div className="w-8 h-8 rounded-full" style={{ background: 'var(--accent-green)' }} />
@@ -87,16 +85,6 @@ const VideoLaptop = ({ scrollProgress }) => {
               </div>
             </div>
           </div>
-
-          {/* Actual Video element (uncomment when you have video URL) */}
-          {/* <video
-            className="w-full h-full object-cover"
-            controls
-            poster="/path-to-thumbnail.jpg"
-          >
-            <source src="/path-to-video.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video> */}
         </div>
 
         {/* Laptop Base */}

@@ -44,8 +44,8 @@ const ProjectsSection = () => {
     <section 
       ref={sectionRef}
       id="projects" 
-      className="relative py-32 px-6"
-      style={{ background: 'white', zIndex: 20 }}
+      className="relative py-32 px-6 main"
+      style={{ background: 'white', zIndex: 50 }}
     >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}

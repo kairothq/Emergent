@@ -52,14 +52,17 @@ const FloatingCards = ({ scrollProgress }) => {
   ];
 
   return (
-    <div className="fixed inset-0 pointer-events-none">
+    <div className="fixed inset-0 pointer-events-none tiles" style={{ zIndex: 22 }}>
       {cards.map((card) => {
         const Icon = card.icon;
         
-        // Calculate transforms based on scroll
-        const opacity = useTransform(scrollProgress, [0, 0.3], [1, 0]);
-        const scale = useTransform(scrollProgress, [0, 0.3], [1, 0.8]);
-        const z = useTransform(scrollProgress, [0, 0.5], [10, -100]); // Move behind laptop
+        // Parallax drift during initial scroll
+        const driftX = useTransform(scrollProgress, [0, 0.55], [0, -30 - card.id * 5]);
+        const driftY = useTransform(scrollProgress, [0, 0.55], [0, -20 - card.id * 3]);
+        
+        // Fade out during white ring expansion
+        const opacity = useTransform(scrollProgress, [0, 0.25, 0.55, 0.65], [1, 1, 0.3, 0]);
+        const scale = useTransform(scrollProgress, [0, 0.25], [0.8, 1]);
         
         return (
           <motion.div
@@ -75,9 +78,11 @@ const FloatingCards = ({ scrollProgress }) => {
             style={{
               opacity,
               scale,
-              z,
+              x: driftX,
+              y: driftY,
               bottom: card.position.bottom,
               right: card.position.right,
+              willChange: 'transform, opacity',
             }}
             transition={{
               duration: 0.8,

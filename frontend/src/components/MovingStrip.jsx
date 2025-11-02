@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 const MovingStrip = () => {
@@ -26,8 +26,8 @@ const MovingStrip = () => {
   return (
     <div 
       ref={targetRef}
-      className="relative py-24 overflow-hidden"
-      style={{ background: 'var(--muted-white)' }}
+      className="relative py-32 overflow-hidden"
+      style={{ background: 'white' }}
     >
       <motion.div
         style={{ x }}
@@ -36,13 +36,17 @@ const MovingStrip = () => {
         {keywords.map((keyword, index) => (
           <React.Fragment key={index}>
             <span 
-              className="text-6xl md:text-8xl font-bold gradient-text"
-              style={{ WebkitTextStroke: '2px var(--accent-green)' }}
+              className="text-7xl md:text-9xl font-bold"
+              style={{ 
+                fontFamily: 'Inter, sans-serif',
+                color: '#122F26',
+                fontWeight: '700',
+              }}
             >
               {keyword}
             </span>
             <span 
-              className="text-4xl"
+              className="text-5xl"
               style={{ color: 'var(--accent-orange)' }}
             >
               ·

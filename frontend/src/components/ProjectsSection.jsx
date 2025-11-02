@@ -82,29 +82,34 @@ const ProjectsSection = () => {
         {/* Stacking Project Cards */}
         <div className="relative space-y-8">
           {featuredProjects.map((project, index) => {
+            // Stacking logic: later projects come above earlier ones
+            // As you scroll, the current project in viewport gets highest z-index
+            const baseZIndex = 60 + (featuredProjects.length - index);
+            
             // Calculate individual card scroll progress
-            const cardScale = useTransform(
-              scrollYProgress,
-              [0.2 + index * 0.1, 0.4 + index * 0.1],
-              [0.95, 1]
-            );
             const cardY = useTransform(
               scrollYProgress,
-              [0.2 + index * 0.1, 0.6 + index * 0.1],
-              [100, -index * 20]
+              [0.1 + index * 0.15, 0.4 + index * 0.15],
+              [100, 0]
+            );
+            
+            const cardScale = useTransform(
+              scrollYProgress,
+              [0.1 + index * 0.15, 0.3 + index * 0.15],
+              [0.95, 1]
             );
 
             return (
               <motion.div
                 key={project.id}
                 style={{ 
-                  scale: cardScale,
                   y: cardY,
+                  scale: cardScale,
                   position: 'sticky',
-                  top: `${120 + index * 20}px`,
-                  zIndex: featuredProjects.length - index,
+                  top: `${80 + index * 10}px`,
+                  zIndex: baseZIndex,
                 }}
-                className="group"
+                className="group project-card"
               >
                 <div 
                   className="p-8 md:p-12 rounded-[2.5rem] backdrop-blur-md shadow-xl"

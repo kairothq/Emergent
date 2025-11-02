@@ -38,7 +38,7 @@ const ProjectsSection = () => {
     <section 
       id="projects" 
       className="relative py-32 px-6"
-      style={{ background: 'var(--bg-dark)' }}
+      style={{ background: 'white', zIndex: 10 }}
     >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
